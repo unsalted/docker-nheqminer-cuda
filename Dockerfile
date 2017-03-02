@@ -5,6 +5,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
+  build-essential \
   wget \
   g++ \
   git \
@@ -14,7 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /tmp
 
-# install boost 1.62+
+# set boost envs
 ARG boost_version=1.62.0
 ARG boost_dir=boost_1_62_0
 ARG boost_sha256_sum=440a59f8bc4023dbe6285c9998b0f7fa288468b889746b1ef00e8b36c559dce1
@@ -30,6 +31,7 @@ ARG boost_libs=" \
   --with-system \
   --with-thread
 
+# install boost
 RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/${boost_dir}.tar.gz \
   && echo "${boost_sha256_sum}  ${boost_dir}.tar.gz" | sha256sum -c \
   && tar xfz ${boost_dir}.tar.gz \
@@ -48,7 +50,7 @@ RUN git clone https://github.com/nicehash/nheqminer.git \
   && cd /tmp \
   && mkdir build/ \
   && cd build/ \
-  && cmake ../Linux_cmake/nheqminer_cpu_xenoncat \
+  && cmake -DUSE_CUDA_DJEZO=OFF ../nheqminer \
   && make -j $(nproc) \
   && cp ./nheqminer /usr/local/bin/nheqminer
 
