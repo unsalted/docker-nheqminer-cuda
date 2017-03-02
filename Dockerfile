@@ -1,5 +1,5 @@
-FROM nvidia/cuda:8.0-runtime-ubuntu16.04
-LABEL maintainer "Unsalted nick@unsalted.nu"
+FROM ubuntu:16.04
+LABEL maintainer "Unsalted"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -8,14 +8,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   wget \
   g++ \
   git \
-  cuda-core-$CUDA_PKG_VERSION \
-  cuda-misc-headers-$CUDA_PKG_VERSION \
-  cuda-command-line-tools-$CUDA_PKG_VERSION \
-  cuda-driver-dev-$CUDA_PKG_VERSION \
+  cmake \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean -y
-
-ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
 
 WORKDIR /tmp
 
@@ -45,21 +40,6 @@ RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/$
   && ./b2 -j 4 install $boost_libs \
   && cd .. && rm -rf ${boost_dir} && ldconfig
 
-# install latest version of cmake
-RUN wget \
-  https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt.asc \
-  && gpg --keyserver pgp.mit.edu --recv 7BFB4EDA \
-  && gpg --verbose --verify cmake-3.7.2-SHA-256.txt.asc cmake-3.7.2-SHA-256.txt \
-  && grep cmake-3.7.2.tar.gz cmake-3.7.2-SHA-256.txt | sha256sum --check \
-  && tar xzvf cmake-3.7.2.tar.gz \
-  && cd cmake-3.7.2/ \
-  && ./bootstrap \
-  && make -j4 \
-  && make install \
-  && cd ../
-
 #install nicehash
 RUN git clone https://github.com/nicehash/nheqminer.git \
   && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
@@ -68,7 +48,7 @@ RUN git clone https://github.com/nicehash/nheqminer.git \
   && cd /tmp \
   && mkdir build/ \
   && cd build/ \
-  && cmake ../nheqminer \
+  && cmake ../Linux_cmake/nheqminer_cpu_xenoncat \
   && make -j $(nproc) \
   && cp ./nheqminer /usr/local/bin/nheqminer
 
