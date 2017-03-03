@@ -1,25 +1,25 @@
+<<<<<<< HEAD
 FROM nvidia/cuda:8.0-runtime-ubuntu16.04
+=======
+FROM ubuntu:16.04
+>>>>>>> 80e30328eb043ecdf594119ffb4d63a58783e016
 LABEL maintainer "Unsalted"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
+  build-essential \
   wget \
   g++ \
   git \
-  cuda-core-$CUDA_PKG_VERSION \
-  cuda-misc-headers-$CUDA_PKG_VERSION \
-  cuda-command-line-tools-$CUDA_PKG_VERSION \
-  cuda-driver-dev-$CUDA_PKG_VERSION \
+  cmake \
   && rm -rf /var/lib/apt/lists/* \
   && apt-get clean -y
 
-ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
-
 WORKDIR /tmp
 
-# install boost 1.62+
+# set boost envs
 ARG boost_version=1.62.0
 ARG boost_dir=boost_1_62_0
 ARG boost_sha256_sum=440a59f8bc4023dbe6285c9998b0f7fa288468b889746b1ef00e8b36c559dce1
@@ -35,6 +35,7 @@ ARG boost_libs=" \
   --with-system \
   --with-thread
 
+# install boost
 RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/${boost_dir}.tar.gz \
   && echo "${boost_sha256_sum}  ${boost_dir}.tar.gz" | sha256sum -c \
   && tar xfz ${boost_dir}.tar.gz \
@@ -45,6 +46,7 @@ RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/$
   && ./b2 -j 4 install $boost_libs \
   && cd .. && rm -rf ${boost_dir} && ldconfig
 
+<<<<<<< HEAD
 # install latest version of cmake
 RUN wget \
   https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
@@ -60,6 +62,8 @@ RUN wget \
   && make install \
   && cd ../
 
+=======
+>>>>>>> 80e30328eb043ecdf594119ffb4d63a58783e016
 # install nicehash
 RUN git clone https://github.com/nicehash/nheqminer.git \
   && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
@@ -68,7 +72,7 @@ RUN git clone https://github.com/nicehash/nheqminer.git \
   && cd /tmp \
   && mkdir build/ \
   && cd build/ \
-  && cmake ../nheqminer \
+  && cmake -DUSE_CUDA_DJEZO=OFF ../nheqminer \
   && make -j $(nproc) \
   && cp ./nheqminer /usr/local/bin/nheqminer
 

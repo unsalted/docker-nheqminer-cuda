@@ -8,13 +8,13 @@
 
 ### Requirements
 ---
-This assumes the NVIDIA drivers and Docker are properly installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
+This assumes that current versions of NVIDIA drivers and Docker is installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
 
 For convenience there is also a *cpu only* build.
 
 **nvidia-docker [install requirements](https://github.com/NVIDIA/nvidia-docker/wiki/Installation)**
 
-##### An example of installing nvidia-docker on Ubuntu 
+##### An example of installing nvidia-docker on Ubuntu 16.04
 *It really isn't so bad...*
 ```
 # Install nvidia-docker and nvidia-docker-plugin
@@ -40,7 +40,7 @@ A few examples commands to help get things up and running quickly.
 **Enter the container**
 `docker exec -it nheqminer bash`
 
-
+---
 #### Nheqminer CPU *only*
 ---
 
