@@ -29,7 +29,7 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 
 #### Quickstart instructions
 ---
-A few examples commands to help get things up and running quickly.
+A few example commands to help get things up and running quickly.
 
 **RUN**
 `nvidia-docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`

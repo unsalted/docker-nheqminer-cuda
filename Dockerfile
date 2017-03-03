@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-FROM nvidia/cuda:8.0-runtime-ubuntu16.04
-=======
 FROM ubuntu:16.04
->>>>>>> 80e30328eb043ecdf594119ffb4d63a58783e016
 LABEL maintainer "Unsalted"
 
 ARG DEBIAN_FRONTEND=noninteractive
@@ -46,24 +42,6 @@ RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/$
   && ./b2 -j 4 install $boost_libs \
   && cd .. && rm -rf ${boost_dir} && ldconfig
 
-<<<<<<< HEAD
-# install latest version of cmake
-RUN wget \
-  https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt.asc \
-  && gpg --keyserver pgp.mit.edu --recv 7BFB4EDA \
-  && gpg --verbose --verify cmake-3.7.2-SHA-256.txt.asc cmake-3.7.2-SHA-256.txt \
-  && grep cmake-3.7.2.tar.gz cmake-3.7.2-SHA-256.txt | sha256sum --check \
-  && tar xzvf cmake-3.7.2.tar.gz \
-  && cd cmake-3.7.2/ \
-  && ./bootstrap \
-  && make -j4 \
-  && make install \
-  && cd ../
-
-=======
->>>>>>> 80e30328eb043ecdf594119ffb4d63a58783e016
 # install nicehash
 RUN git clone https://github.com/nicehash/nheqminer.git \
   && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
