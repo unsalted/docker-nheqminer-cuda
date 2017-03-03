@@ -42,7 +42,7 @@ RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/$
   && ./b2 -j 4 install $boost_libs \
   && cd .. && rm -rf ${boost_dir} && ldconfig
 
-#install nicehash
+# install nicehash
 RUN git clone https://github.com/nicehash/nheqminer.git \
   && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
   && cd nheqminer/cpu_xenoncat/asm_linux \
