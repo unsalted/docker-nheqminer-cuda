@@ -1,5 +1,5 @@
 FROM nvidia/cuda:8.0-runtime-ubuntu16.04
-LABEL maintainer "Unsalted nick@unsalted.nu"
+LABEL maintainer "Unsalted"
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -60,7 +60,7 @@ RUN wget \
   && make install \
   && cd ../
 
-#install nicehash
+# install nicehash
 RUN git clone https://github.com/nicehash/nheqminer.git \
   && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
   && cd nheqminer/cpu_xenoncat/asm_linux \
