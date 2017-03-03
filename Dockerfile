@@ -1,80 +1,59 @@
-FROM nvidia/cuda:8.0-runtime-ubuntu16.04
-LABEL maintainer "Unsalted"
+## [Nheqminer *with* NVIDIA CUDA](https://github.com/unsalted/docker-nheqminer-cuda) support
 
-ARG DEBIAN_FRONTEND=noninteractive
+### Releases
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  ca-certificates \
-  wget \
-  g++ \
-  git \
-  cuda-core-$CUDA_PKG_VERSION \
-  cuda-misc-headers-$CUDA_PKG_VERSION \
-  cuda-command-line-tools-$CUDA_PKG_VERSION \
-  cuda-driver-dev-$CUDA_PKG_VERSION \
-  && rm -rf /var/lib/apt/lists/* \
-  && apt-get clean -y
+#### Ubuntu 16.04
+- `v0.5c`,`cuda`, `latest` *[(v0.5c/CUDA 8.0/Dockerfile)](https://github.com/unsalted/docker-nheqminer-cuda/blob/master/Dockerfile)*
+- `cpu-v0.5c`, `cpu` *[(v0.5c/CPU/Dockerfile)](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile)*
 
-ENV LIBRARY_PATH /usr/local/cuda/lib64/stubs:${LIBRARY_PATH}
+### Requirements
+---
+This assumes the NVIDIA drivers and Docker are properly installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
 
-WORKDIR /tmp
+For convenience there is also a *cpu only* build.
 
-# install boost 1.62+
-ARG boost_version=1.62.0
-ARG boost_dir=boost_1_62_0
-ARG boost_sha256_sum=440a59f8bc4023dbe6285c9998b0f7fa288468b889746b1ef00e8b36c559dce1
-ENV boost_version ${boost_version}
+**nvidia-docker [install requirements](https://github.com/NVIDIA/nvidia-docker/wiki/Installation)**
 
-ARG boost_libs=" \
-  --with-atomic \
-  --with-chrono \
-  --with-date_time \
-  --with-filesystem \
-  --with-log \
-  --with-regex \
-  --with-system \
-  --with-thread
+##### An example of installing nvidia-docker on Ubuntu 
+*It really isn't so bad...*
+```
+# Install nvidia-docker and nvidia-docker-plugin
+wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
+sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
 
-RUN wget http://downloads.sourceforge.net/project/boost/boost/${boost_version}/${boost_dir}.tar.gz \
-  && echo "${boost_sha256_sum}  ${boost_dir}.tar.gz" | sha256sum -c \
-  && tar xfz ${boost_dir}.tar.gz \
-  && rm ${boost_dir}.tar.gz \
-  && cd ${boost_dir} \
-  && ./bootstrap.sh --prefix=/usr \
-  && ./b2 -j 4 stage $boost_libs \
-  && ./b2 -j 4 install $boost_libs \
-  && cd .. && rm -rf ${boost_dir} && ldconfig
+# Test nvidia-smi
+nvidia-docker run --rm nvidia/cuda nvidia-smi
 
-# install latest version of cmake
-RUN wget \
-  https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt \
-  https://cmake.org/files/v3.7/cmake-3.7.2-SHA-256.txt.asc \
-  && gpg --keyserver pgp.mit.edu --recv 7BFB4EDA \
-  && gpg --verbose --verify cmake-3.7.2-SHA-256.txt.asc cmake-3.7.2-SHA-256.txt \
-  && grep cmake-3.7.2.tar.gz cmake-3.7.2-SHA-256.txt | sha256sum --check \
-  && tar xzvf cmake-3.7.2.tar.gz \
-  && cd cmake-3.7.2/ \
-  && ./bootstrap \
-  && make -j4 \
-  && make install \
-  && cd ../
+```
+---
 
-# install nicehash
-RUN git clone https://github.com/nicehash/nheqminer.git \
-  && chmod +x nheqminer/cpu_xenoncat/asm_linux/* \
-  && cd nheqminer/cpu_xenoncat/asm_linux \
-  && sh assemble.sh \
-  && cd /tmp \
-  && mkdir build/ \
-  && cd build/ \
-  && cmake ../nheqminer \
-  && make -j $(nproc) \
-  && cp ./nheqminer /usr/local/bin/nheqminer
+#### Quickstart instructions
+---
+A few examples commands to help get things up and running quickly.
 
-RUN rm -rf /tmp/*
-RUN useradd -ms /bin/bash nheqminer
-USER nheqminer
-WORKDIR /home/nheqminer
+**RUN**
+`nvidia-docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
-ENTRYPOINT ["bash"]
+**EXEC command (start, help, benchmark)**
+`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3335 -u YOUR_ZEC_ADDRESS.user -cd 0"`
+
+**Enter the container**
+`docker exec -it nheqminer bash`
+
+
+#### Nheqminer CPU *only*
+---
+
+**RUN**
+`docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
+
+**EXEC command (start, help, benchmark)**
+`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3334 -u YOUR_ZEC_ADDRESS.user -t 4"`
+
+**Enter the container**
+`docker exec -it nheqminer bash`
+
+
+**For more information about using nheqminer see [their repository](https://github.com/nicehash/nheqminer)**.
+
+**Please ask questions and post bugs to [github](https://github.com/unsalted/docker-nheqminer-cuda).**
