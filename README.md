@@ -52,7 +52,7 @@ On a stock GTX1070 with two threads the djezo solver runs at around 380 Sol/s.
 
 **RUN**
 
-`docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
+`docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer:cpu`
 
 **EXEC command (start, help, benchmark)**
 
