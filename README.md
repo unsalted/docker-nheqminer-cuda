@@ -30,12 +30,15 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 #### Quickstart instructions
 ---
 A few example commands to help get things up and running quickly.
+**Do not** run more than two threads per instance, if you want to run CPU and GPU on the same machine spin up seperate instances.
+**DO RUN *two threads* per instance** for example `-cd 0 0 1 1`.
+On a stock GTX1070 with two threads the djezo solver runs at around 380 Sol/s.
 
 **RUN**
 `nvidia-docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
-**EXEC command (start, help, benchmark)**
-`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3335 -u YOUR_ZEC_ADDRESS.user -cd 0"`
+**EXEC nheq command (start, help, benchmark)**
+`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3335 -u YOUR_ZEC_ADDRESS.user -cd 0 0"`
 
 **Enter the container**
 `docker exec -it nheqminer bash`
@@ -48,12 +51,12 @@ A few example commands to help get things up and running quickly.
 `docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
 **EXEC command (start, help, benchmark)**
-`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3334 -u YOUR_ZEC_ADDRESS.user -t 4"`
+`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3334 -u YOUR_ZEC_ADDRESS.user -t 2"`
 
 **Enter the container**
 `docker exec -it nheqminer bash`
 
 
-**For more information about using nheqminer see [their repository](https://github.com/nicehash/nheqminer)**.
+**For more information about using nheqminer see [the nicehash nheqminer repo](https://github.com/nicehash/nheqminer)**.
 
 **Please ask questions and post bugs to [github](https://github.com/unsalted/docker-nheqminer-cuda).**
