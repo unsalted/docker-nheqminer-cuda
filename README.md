@@ -10,7 +10,7 @@
 ---
 This assumes that current versions of NVIDIA drivers and Docker is installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
 
-For convenience there is also a *cpu only* build.
+For convenience there is also a [*cpu only*](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile) build.
 
 **nvidia-docker [install requirements](https://github.com/NVIDIA/nvidia-docker/wiki/Installation)**
 
