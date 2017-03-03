@@ -35,12 +35,15 @@ A few example commands to help get things up and running quickly.
 On a stock GTX1070 with two threads the djezo solver runs at around 380 Sol/s.
 
 **RUN**
+
 `nvidia-docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
 **EXEC nheq command (start, help, benchmark)**
+
 `docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3335 -u YOUR_ZEC_ADDRESS.user -cd 0 0"`
 
 **Enter the container**
+
 `docker exec -it nheqminer bash`
 
 ---
@@ -48,12 +51,15 @@ On a stock GTX1070 with two threads the djezo solver runs at around 380 Sol/s.
 ---
 
 **RUN**
+
 `docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
 **EXEC command (start, help, benchmark)**
+
 `docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3334 -u YOUR_ZEC_ADDRESS.user -t 2"`
 
 **Enter the container**
+
 `docker exec -it nheqminer bash`
 
 
