@@ -1,5 +1,11 @@
 ## [Nheqminer *with* NVIDIA CUDA](https://github.com/unsalted/docker-nheqminer-cuda) support
----
+
+### Releases
+
+#### Ubuntu 16.04
+- v0.5c | CUDA 8.0 | xenocat + djezo [(latest/cuda/v0.5c)](https://github.com/unsalted/docker-nheqminer-cuda/blob/master/Dockerfile)
+- v0.5c | CPU only | xenocat [(cpu/cpu-v0.5c)](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile)
+
 ### Requirements
 ---
 This assumes the NVIDIA drivers and Docker are properly installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
