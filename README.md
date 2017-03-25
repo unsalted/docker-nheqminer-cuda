@@ -16,7 +16,10 @@ For convenience there is also a *cpu only* build.
 
 ##### An example of installing nvidia-docker on Ubuntu 16.04
 *It really isn't so bad...*
-```
+```bash
+
+# requirement
+sudo apt-get install nvidia-modprobe
 # Install nvidia-docker and nvidia-docker-plugin
 wget -P /tmp https://github.com/NVIDIA/nvidia-docker/releases/download/v1.0.0/nvidia-docker_1.0.0-1_amd64.deb
 sudo dpkg -i /tmp/nvidia-docker*.deb && rm /tmp/nvidia-docker*.deb
@@ -31,27 +34,49 @@ nvidia-docker run --rm nvidia/cuda nvidia-smi
 ---
 A few example commands to help get things up and running quickly.
 
-**RUN**
-`nvidia-docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
 
-**EXEC command (start, help, benchmark)**
-`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3335 -u YOUR_ZEC_ADDRESS.user -cd 0"`
+**DOCKER RUN**
+```bash 
+nvidia-docker run --restart always -i -d -h nheqminer  unsalted/nheqminer \
+nheqminer -l zec-us1.dwarfpool.com:3335 -u ZEC_ADDRESS.user -cd 0 
+```
 
-**Enter the container**
+**DOCKER Enter the container**
 `docker exec -it nheqminer bash`
 
----
-#### Nheqminer CPU *only*
----
 
-**RUN**
-`docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer`
+**Makefile**
 
-**EXEC command (start, help, benchmark)**
-`docker exec nheqminer bash -c "nheqminer -l zec-us1.dwarfpool.com:3334 -u YOUR_ZEC_ADDRESS.user -t 4"`
+A makefile is provided with quickstart commands the only *required* variable is you ADDRESS, it will still run but it will mine to my address (thank you).
 
-**Enter the container**
-`docker exec -it nheqminer bash`
+*Run with flags*
+
+`make nheqminer FLAGS="-l zec-us1.dwarfpool.com:3336 -u t1UoqVgJYfRuZZyaU93FncJzXdhKmx6Vpb5.botbot -cd 0 1"`
+
+*Run with variables*
+
+`make run GPU="0 1" ADDRESS=MY_ADDRESS PORT=3356`
+
+*Run cpu*
+
+`make cpu ADDRESS=MY_ADDRESS PORT=3354 THREADS=4`
+
+
+**Full list of default variables**
+
+```
+
+GPU=0
+THREADS=Null
+HOST=HOSTNAME
+RESTART=always
+UID=RANDOM
+LOCATION=zec-us1.dwarfpool.com
+PORT=3335
+ADDRESS=t1UoqVgJYfRuZZyaU93FncJzXdhKmx6Vpb5
+DOCKER=nvidia-docker
+
+```
 
 
 **For more information about using nheqminer see [their repository](https://github.com/nicehash/nheqminer)**.
