@@ -1,5 +1,7 @@
 ## [Nheqminer *with* NVIDIA CUDA](https://github.com/unsalted/docker-nheqminer-cuda) support
 
+I have now had my docker running 4+ weeks which I consider to be meet my standards for "stable".
+
 ### Releases
 
 #### Ubuntu 16.04
@@ -36,8 +38,6 @@ A few example commands to help get things up and running quickly.
 **Do not** run more than two threads per instance, if you want to run CPU and GPU on the same machine spin up seperate instances.
 **DO RUN *two threads* per instance** for example `-cd 0 0 1 1`.
 On a stock GTX1070 with two threads the djezo solver runs at around 380 Sol/s.
-
-<<<<<<< HEAD
 
 **DOCKER RUN**
 ```bash 
