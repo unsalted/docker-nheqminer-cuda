@@ -57,7 +57,6 @@ nheqminer -l zec-us1.dwarfpool.com:3335 -u ZEC_ADDRESS.user -cd 0
 
 **Enter the container**
 
->>>>>>> 3e8f6072afc8a3ba5d9ef1913ed829575a2b1655
 `docker exec -it nheqminer bash`
 
 
@@ -93,7 +92,7 @@ ADDRESS=t1UoqVgJYfRuZZyaU93FncJzXdhKmx6Vpb5
 DOCKER=nvidia-docker
 
 ```
-=======
+---
 **RUN**
 
 `docker run --rm -i -d -h nheqminer --name nheqminer unsalted/nheqminer:cpu`
