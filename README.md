@@ -1,6 +1,6 @@
 ## [Nheqminer *with* NVIDIA CUDA](https://github.com/unsalted/docker-nheqminer-cuda) support
 
-I have now had my docker running 4+ weeks which I consider to be meet my standards for "stable".
+I have now had my docker running 4+ weeks which meets my standards for "stable".
 
 ### Releases
 
