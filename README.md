@@ -10,7 +10,7 @@ I have now had my docker running 4+ weeks which meets my standards for "stable".
 
 ### Requirements
 ---
-This assumes that current versions of NVIDIA drivers and Docker is installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
+This assumes that current version of NVIDIA drivers and Docker is installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
 
 For convenience there is also a [*cpu only*](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile) build.
 
@@ -62,7 +62,7 @@ nheqminer -l zec-us1.dwarfpool.com:3335 -u ZEC_ADDRESS.user -cd 0
 
 **Makefile**
 
-A makefile is provided with quickstart commands the only *required* variable is you ADDRESS, it will still run but it will mine to my address (thank you).
+A makefile is provided with quickstart commands the only *required* variable is your ADDRESS, it will still run but it will mine to my address (thank you).
 
 *Run with flags*
 
