@@ -6,13 +6,13 @@ I have now had my docker running 4+ weeks which meets my standards for "stable".
 
 #### Ubuntu 16.04
 - `v0.5c`, ` cuda`, `latest` [(CUDA 8.0/v0.5c)](https://github.com/unsalted/docker-nheqminer-cuda/blob/master/Dockerfile)
-- `v0.5c-cpu`, `cpu` [(CPU/v0.5c)](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile)
+- `v0.5c-cpu`, `cpu` [(CPU/v0.5c)](https://github.com/unsalted/docker-nheqminer-cuda/blob/master/CPU/Dockerfile)
 
 ### Requirements
 ---
 This assumes that current version of NVIDIA drivers and Docker is installed, it also requires the [nvidia-docker plugin](https://github.com/NVIDIA/nvidia-docker) which allows the image to access the host GPU and drivers with minimal extra requirements on *you* or  the host.
 
-For convenience there is also a [*cpu only*](https://github.com/unsalted/docker-nheqminer-cuda/blob/cpu/Dockerfile) build.
+For convenience there is also a [*cpu only*](https://github.com/unsalted/docker-nheqminer-cuda/blob/master/CPU/Dockerfile) build.
 
 **nvidia-docker [install requirements](https://github.com/NVIDIA/nvidia-docker/wiki/Installation)**
 
